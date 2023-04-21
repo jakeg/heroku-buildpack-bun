@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+# $HOME: /app
+
+set -e
+
+BUILD_DIR=${1:-.}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+
+HEROKU_DIR=$BUILD_DIR/.heroku
+BIN_DIR=$HEROKU_DIR/bin
+
+# To enable the local source build cache path, copy the files and match the build path with the startup path.
+cp -rpT $BUILD_DIR $HOME
+cd $HOME
+
+if [ -f runtime.txt ]
+then
+  INSTALL_VERSION_OPTION="-s $(cat runtime.txt)"
+fi
+echo $INSTALL_VERSION_OPTION
+
+# install bun
+export BUN_INSTALL=$BUILD_DIR/.heroku
+export BUN_DIR=$BUILD_DIR/.heroku/cache
+curl -fsSL https://bun.sh/install | bash $INSTALL_VERSION_OPTION
+
+# set environment variables
+PROFILE_PATH="$BUILD_DIR/.profile.d/bun.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$HOME/.heroku/bin:$PATH"' >> $PROFILE_PATH
+echo 'export BUN_DIR="$HOME/.heroku/cache"' >> $PROFILE_PATH
+
+set +e
+
+# download dependencies
+if [ -f Procfile ]
+then
+  SCRIPT_DIR=$(cd $(dirname $0); pwd)
+  source $SCRIPT_DIR/get_cache_command.sh
+  COMMAND=$(cat Procfile | grep -E '^(web|worker):')
+  if [ -n "$COMMAND" ]
+  then
+    CACHE_COMMAND=$(get_cache_command "$COMMAND")
+    if [ -n "$CACHE_COMMAND" ]
+    then
+      $BIN_DIR/$CACHE_COMMAND
+    fi
+  fi
+fi

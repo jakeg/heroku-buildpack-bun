@@ -17,10 +17,10 @@ cd $HOME
 
 if [ -f runtime.bun.txt ]
 then
-  INSTALL_VERSION_OPTION="-s $(cat runtime.bun.txt)"
+  INSTALL_VERSION_OPTION="-s bun-$(cat runtime.bun.txt)"
 elif [ -f runtime.txt ]
 then
-  INSTALL_VERSION_OPTION="-s $(cat runtime.txt)"
+  INSTALL_VERSION_OPTION="-s bun-$(cat runtime.txt)"
 fi
 echo $INSTALL_VERSION_OPTION
 

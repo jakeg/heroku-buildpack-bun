@@ -15,7 +15,10 @@ BIN_DIR=$HEROKU_DIR/bin
 cp -rpT $BUILD_DIR $HOME
 cd $HOME
 
-if [ -f runtime.txt ]
+if [ -f runtime.bun.txt ]
+then
+  INSTALL_VERSION_OPTION="-s $(cat runtime.bun.txt)"
+elif [ -f runtime.txt ]
 then
   INSTALL_VERSION_OPTION="-s $(cat runtime.txt)"
 fi

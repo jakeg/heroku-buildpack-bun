@@ -12,6 +12,23 @@ You'll need a [`Procfile`](https://devcenter.heroku.com/articles/procfile) in th
 
 Pin a certain Bun version with a `runtime.bun.txt` or `runtime.txt` with e.g. `v1.0.7` in it.
 
+## Binding to correct port
+
+Bind to `env.PORT` eg
+
+```js
+import { env } from 'process'
+
+const server = Bun.serve({
+  port: env.PORT || 3000,
+  fetch(request) {
+    return new Response(`Welcome to Bun running on Heroku!`)
+  },
+})
+
+console.log(`Listening on localhost:${server.port}`)
+```
+
 ## Potential issues
 
 ~Be aware that Heroku doesn't use a new enough version of the Linux kernel to support `io_uring`, which is needed for `Bun.write()`. Use `node:fs.writeFile()` instead.~ - this [seems now to be fixed](https://devcenter.heroku.com/changelog-items/2713).

@@ -45,6 +45,8 @@ then
   cd $BUILD_DIR
   bun install
 
-  echo "Building application..."
-  bun run build
+  if grep -q '"build"\s*:' package.json; then
+    echo "Building application..."
+    bun run build
+  fi
 fi

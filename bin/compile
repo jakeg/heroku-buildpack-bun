@@ -44,4 +44,7 @@ then
   echo "Installing dependencies..."
   cd $BUILD_DIR
   bun install
+
+  echo "Building application..."
+  bun run build
 fi

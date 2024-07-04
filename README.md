@@ -2,7 +2,7 @@
 
 Heroku buildpack for [Bun.js](https://bun.sh/) - allows you to run Bun on Heroku.
 
-Largely copied from the [Deno buildpack](https://github.com/chibat/heroku-buildpack-deno).
+Largely copied from the [Deno buildpack](https://github.com/chibat/heroku-buildpack-deno) and [Node.js buildpack](https://github.com/heroku/heroku-buildpack-nodejs).
 
 ## How to use
 

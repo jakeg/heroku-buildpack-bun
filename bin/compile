@@ -52,6 +52,13 @@ then
   bun install
 fi
 
+has_heroku_prebuild_script=$(has_script "package.json" "heroku-prebuild")
+if [[ "$has_heroku_prebuild_script" == "true" ]]
+then
+  echo "Running Heroku prebuild script..."
+  bun run heroku-prebuild
+fi
+
 has_build_script=$(has_script "package.json" "build")
 if [[ "$has_build_script" == "true" ]]
 then

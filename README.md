@@ -17,8 +17,9 @@ Pin a certain Bun version with a `runtime.bun.txt` or `runtime.txt` with e.g. `v
 This buildpack automatically runs the following bun commands and scripts if defined in `package.json`.
 
 - install (`bun install`)
+- heroku-prebuild (`bun run heroku-prebuild`)
 - build (`bun run build`)
-- heroku:postbuild (`bun run heroku-postbuild`)
+- heroku-postbuild (`bun run heroku-postbuild`)
 
 ## Binding to correct port
 

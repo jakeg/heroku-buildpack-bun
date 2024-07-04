@@ -12,6 +12,14 @@ You'll need a [`Procfile`](https://devcenter.heroku.com/articles/procfile) in th
 
 Pin a certain Bun version with a `runtime.bun.txt` or `runtime.txt` with e.g. `v1.0.7` in it.
 
+## Support scripts
+
+This buildpack automatically runs the following bun commands and scripts if defined in `package.json`.
+
+- install (`bun install`)
+- build (`bun run build`)
+- heroku:postbuild (`bun run heroku-postbuild`)
+
 ## Binding to correct port
 
 Bind to `env.PORT` eg

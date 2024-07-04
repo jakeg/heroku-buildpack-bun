@@ -58,3 +58,10 @@ then
   echo "Building application..."
   bun run build
 fi
+
+has_heroku_postbuild_script=$(has_script "package.json" "heroku-postbuild")
+if [[ "$has_heroku_postbuild_script" == "true" ]]
+then
+  echo "Running Heroku postbuild script..."
+  bun run heroku-postbuild
+fi

@@ -43,11 +43,12 @@ echo 'export BUN_DIR="$HOME/.heroku/cache"' >> $PROFILE_PATH
 
 set +e
 
+cd $BUILD_DIR
+
 # download dependencies
 if [ -f package.json ]
 then
   echo "Installing dependencies..."
-  cd $BUILD_DIR
   bun install
 fi
 
@@ -55,7 +56,6 @@ has_build_script=$(has_script "package.json" "build")
 if [[ "$has_build_script" == "true" ]]
 then
   echo "Building application..."
-  cd $BUILD_DIR
   bun run build
 fi
 

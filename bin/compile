@@ -58,5 +58,3 @@ then
   echo "Building application..."
   bun run build
 fi
-
-ls $BUILD_DIR

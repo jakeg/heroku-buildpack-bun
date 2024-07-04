@@ -58,3 +58,5 @@ then
   cd $BUILD_DIR
   bun run build
 fi
+
+ls $BUILD_DIR

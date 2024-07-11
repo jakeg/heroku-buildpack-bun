@@ -7,12 +7,17 @@ set -e
 BUILD_DIR=${1:-.}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
+BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
+
+### Load dependencies
+source "$BP_DIR/lib/json.sh"
+
 
 HEROKU_DIR=$BUILD_DIR/.heroku
 BIN_DIR=$HEROKU_DIR/bin
 
 # To enable the local source build cache path, copy the files and match the build path with the startup path.
-cp -rpT $BUILD_DIR $HOME
+cp -rp $BUILD_DIR $HOME
 cd $HOME
 
 if [ -f runtime.bun.txt ]
@@ -38,10 +43,33 @@ echo 'export BUN_DIR="$HOME/.heroku/cache"' >> $PROFILE_PATH
 
 set +e
 
+cd $BUILD_DIR
+
 # download dependencies
 if [ -f package.json ]
 then
   echo "Installing dependencies..."
-  cd $BUILD_DIR
   bun install
+fi
+
+has_heroku_prebuild_script=$(has_script "package.json" "heroku-prebuild")
+if [[ "$has_heroku_prebuild_script" == "true" ]]
+then
+  echo "Running Heroku prebuild script..."
+  bun run heroku-prebuild
+fi
+
+has_build_script=$(has_script "package.json" "build")
+if [[ "$has_build_script" == "true" ]]
+then
+  echo "Building application..."
+  bun run build
+  echo "Done building application..."
+fi
+
+has_heroku_postbuild_script=$(has_script "package.json" "heroku-postbuild")
+if [[ "$has_heroku_postbuild_script" == "true" ]]
+then
+  echo "Running Heroku postbuild script..."
+  bun run heroku-postbuild
 fi

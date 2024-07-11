@@ -10,7 +10,7 @@ To add the buildpack to your Heroku app, visit the settings page for your app on
 
 You'll need a [`Procfile`](https://devcenter.heroku.com/articles/procfile) in the root folder of your app, with eg `web: bun index.js` in it.
 
-Pin a certain Bun version with a `runtime.bun.txt` or `runtime.txt` with e.g. `v1.0.7` in it.
+Pin a certain Bun version with `BUN_VERSION` environment variable (eg under 'Config Vars' on your app's Heroku settings page), or with a `runtime.bun.txt` or `runtime.txt` with e.g. `v1.0.7` in it.
 
 ## Support scripts
 

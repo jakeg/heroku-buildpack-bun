@@ -22,17 +22,17 @@ cd $HOME
 
 if [ -f runtime.bun.txt ]
 then
-  INSTALL_VERSION_OPTION="-s bun-$(cat runtime.bun.txt)"
+  BUN_VERSION="-s bun-$(cat runtime.bun.txt)"
 elif [ -f runtime.txt ]
 then
-  INSTALL_VERSION_OPTION="-s bun-$(cat runtime.txt)"
+  BUN_VERSION="-s bun-$(cat runtime.txt)"
 fi
-echo $INSTALL_VERSION_OPTION
+echo $BUN_VERSION
 
 # install bun
 export BUN_INSTALL=$BUILD_DIR/.heroku
 export BUN_DIR=$BUILD_DIR/.heroku/cache
-curl -fsSL https://bun.sh/install | bash $INSTALL_VERSION_OPTION
+curl -fsSL https://bun.sh/install | bash $BUN_VERSION
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # set environment variables

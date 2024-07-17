@@ -9,6 +9,11 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 
+# debug
+echo 'debug...'
+ls $ENV_DIR
+echo '...end debug'
+
 ### Load dependencies
 source "$BP_DIR/lib/json.sh"
 

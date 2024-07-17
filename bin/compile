@@ -23,10 +23,10 @@ cd $HOME
 pwd
 ls
 
-if [ -f runtime.bun.txt ]
+if [ -f $BUILD_DIR/runtime.bun.txt ]
 then
   BUN_VERSION="$(cat runtime.bun.txt)"
-elif [ -f runtime.txt ]
+elif [ -f $BUILD_DIR/runtime.txt ]
 then
   BUN_VERSION="$(cat runtime.txt)"
 fi

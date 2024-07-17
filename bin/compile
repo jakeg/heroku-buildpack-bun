@@ -12,13 +12,16 @@ BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 ### Load dependencies
 source "$BP_DIR/lib/json.sh"
 
-
 HEROKU_DIR=$BUILD_DIR/.heroku
 BIN_DIR=$HEROKU_DIR/bin
 
 # To enable the local source build cache path, copy the files and match the build path with the startup path.
 cp -rp $BUILD_DIR $HOME
 cd $HOME
+
+# debug
+pwd
+ls
 
 if [ -f runtime.bun.txt ]
 then

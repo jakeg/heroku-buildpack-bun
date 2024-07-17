@@ -25,10 +25,10 @@ ls
 
 if [ -f $BUILD_DIR/runtime.bun.txt ]
 then
-  BUN_VERSION="$(cat runtime.bun.txt)"
+  BUN_VERSION="$(cat $BUILD_DIR/runtime.bun.txt)"
 elif [ -f $BUILD_DIR/runtime.txt ]
 then
-  BUN_VERSION="$(cat runtime.txt)"
+  BUN_VERSION="$(cat $BUILD_DIR/runtime.txt)"
 fi
 echo "Installing Bun $BUN_VERSION"
 

@@ -8,9 +8,9 @@ Largely copied from the [Deno buildpack](https://github.com/chibat/heroku-buildp
 
 To add the buildpack to your Heroku app, visit the settings page for your app on Heroku, then under 'Buildpacks' add the URL `https://github.com/jakeg/heroku-buildpack-bun`.
 
-You'll need a [`Procfile`](https://devcenter.heroku.com/articles/procfile) in the root folder of your app, with eg `web: bun index.js` in it (or a `package.json` with a start script listed).
+You'll either need a [`Procfile`](https://devcenter.heroku.com/articles/procfile) in the root folder of your app (with eg `web: bun index.js` in it), or a `package.json` with a start script listed.
 
-Pin a certain Bun version with `BUN_VERSION` environment variable (eg under 'Config Vars' on your app's Heroku settings page), or with a `runtime.bun.txt` or `runtime.txt` with e.g. `v1.0.7` in it.
+Pin a certain Bun version such as `v1.1.20` with the `BUN_VERSION` environment variable (eg under 'Config Vars' on your app's Heroku settings page), or with a `runtime.bun.txt` or `runtime.txt` containing a single line for the pinned version. The version must start with `v` eg `v1.0.7` _not_ `1.0.7`.
 
 ## Support scripts
 
@@ -39,7 +39,5 @@ console.log(`Listening on localhost:${server.port}`)
 ```
 
 ## Potential issues
-
-~Be aware that Heroku doesn't use a new enough version of the Linux kernel to support `io_uring`, which is needed for `Bun.write()`. Use `node:fs.writeFile()` instead.~ - this [seems now to be fixed](https://devcenter.heroku.com/changelog-items/2713).
 
 Use the Issues tab to report any issues.

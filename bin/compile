@@ -19,10 +19,6 @@ BIN_DIR=$HEROKU_DIR/bin
 cp -rp $BUILD_DIR $HOME
 cd $HOME
 
-# debug
-pwd
-ls
-
 if [ -f $BUILD_DIR/runtime.bun.txt ]
 then
   BUN_VERSION="$(cat $BUILD_DIR/runtime.bun.txt)"

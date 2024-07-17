@@ -9,11 +9,6 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 
-# debug
-echo 'debug...'
-ls $ENV_DIR
-echo '...end debug'
-
 ### Load dependencies
 source "$BP_DIR/lib/json.sh"
 
@@ -24,7 +19,11 @@ BIN_DIR=$HEROKU_DIR/bin
 cp -rp $BUILD_DIR $HOME
 cd $HOME
 
-if [ -f $BUILD_DIR/runtime.bun.txt ]
+# Allow Bun version pinning
+if [ -f $ENV_DIR/BUN_VERSION ]
+then
+  BUN_VERSION="$(cat $ENV_DIR/BUN_VERSION)"
+elif [ -f $BUILD_DIR/runtime.bun.txt ]
 then
   BUN_VERSION="$(cat $BUILD_DIR/runtime.bun.txt)"
 elif [ -f $BUILD_DIR/runtime.txt ]

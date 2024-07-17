@@ -46,6 +46,8 @@ mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$HOME/.heroku/bin:$PATH"' >> $PROFILE_PATH
 echo 'export BUN_DIR="$HOME/.heroku/cache"' >> $PROFILE_PATH
 
+echo "Installed Bun v$(bun --version)"
+
 set +e
 
 cd $BUILD_DIR

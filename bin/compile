@@ -19,7 +19,12 @@ BIN_DIR=$HEROKU_DIR/bin
 cp -rp $BUILD_DIR $HOME
 cd $HOME
 
-export_env_dir()
+# Export the content of the ENV_DIR into the environment
+if [ -d "$ENV_DIR" ]; then
+  for e in $(ls $ENV_DIR); do
+    export "$e=$(cat $ENV_DIR/$e)"
+  done
+fi
 
 # Allow Bun version pinning
 if [ -f $BUILD_DIR/runtime.bun.txt ]
@@ -83,11 +88,3 @@ then
   bun run heroku-postbuild
 fi
 
-# Export the content of the ENV_DIR into the environment
-export_env_dir() {
-  if [ -d "$ENV_DIR" ]; then
-    for e in $(ls $ENV_DIR); do
-      export "$e=$(cat $ENV_DIR/$e)"
-    done
-  fi
-}

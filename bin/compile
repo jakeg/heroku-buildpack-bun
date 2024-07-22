@@ -85,14 +85,9 @@ fi
 
 # Export the content of the ENV_DIR into the environment
 export_env_dir() {
-  env_dir=$1
-  acceptlist_regex=${2:-''}
-  denylist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
-  if [ -d "$env_dir" ]; then
-    for e in $(ls $env_dir); do
-      echo "$e" | grep -E "$acceptlist_regex" | grep -qvE "$denylist_regex" &&
-      export "$e=$(cat $env_dir/$e)"
-      :
+  if [ -d "$ENV_DIR" ]; then
+    for e in $(ls $ENV_DIR); do
+      export "$e=$(cat $ENV_DIR/$e)"
     done
   fi
 }

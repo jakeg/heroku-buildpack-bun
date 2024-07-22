@@ -19,11 +19,10 @@ BIN_DIR=$HEROKU_DIR/bin
 cp -rp $BUILD_DIR $HOME
 cd $HOME
 
+export_env_dir()
+
 # Allow Bun version pinning
-if [ -f $ENV_DIR/BUN_VERSION ]
-then
-  BUN_VERSION="$(cat $ENV_DIR/BUN_VERSION)"
-elif [ -f $BUILD_DIR/runtime.bun.txt ]
+if [ -f $BUILD_DIR/runtime.bun.txt ]
 then
   BUN_VERSION="$(cat $BUILD_DIR/runtime.bun.txt)"
 elif [ -f $BUILD_DIR/runtime.txt ]
@@ -83,3 +82,17 @@ then
   echo "Running Heroku postbuild script..."
   bun run heroku-postbuild
 fi
+
+# Export the content of the ENV_DIR into the environment
+export_env_dir() {
+  env_dir=$1
+  acceptlist_regex=${2:-''}
+  denylist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
+  if [ -d "$env_dir" ]; then
+    for e in $(ls $env_dir); do
+      echo "$e" | grep -E "$acceptlist_regex" | grep -qvE "$denylist_regex" &&
+      export "$e=$(cat $env_dir/$e)"
+      :
+    done
+  fi
+}

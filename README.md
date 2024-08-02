@@ -21,6 +21,8 @@ This buildpack automatically runs the following bun commands and scripts if defi
 - build (`bun run build`)
 - heroku-postbuild (`bun run heroku-postbuild`)
 
+Optionally skip any of these steps with files named `.skip-bun-install`, `.skip-bun-heroku-prebuild`, `.skip-bun-build` or `.skip-bun-heroku-postbuild`.
+
 ## Binding to correct port
 
 Bind to `env.PORT` eg

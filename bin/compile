@@ -26,8 +26,11 @@ if [ -d "$ENV_DIR" ]; then
   done
 fi
 
-# Allow Bun version pinning
-if [ -f $BUILD_DIR/runtime.bun.txt ]
+# Allow Bun version pinning via a choice of 3 different files
+if [ -f $BUILD_DIR/.bun-version ]
+then
+  BUN_VERSION="$(cat $BUILD_DIR/.bun-version)"
+elif [ -f $BUILD_DIR/runtime.bun.txt ]
 then
   BUN_VERSION="$(cat $BUILD_DIR/runtime.bun.txt)"
 elif [ -f $BUILD_DIR/runtime.txt ]
@@ -38,6 +41,10 @@ echo "Installing Bun $BUN_VERSION"
 
 if [[ -n $BUN_VERSION ]]
 then
+  # prepend a v to version numbers, eg 1.0.19 -> v1.0.19
+  if [[ $BUN_VERSION =~ ^[0-9] ]]; then
+    BUN_VERSION="v${BUN_VERSION}"
+  fi
   BUN_INSTALL_VERSION="-s bun-$BUN_VERSION"
 fi
 

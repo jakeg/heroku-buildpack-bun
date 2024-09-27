@@ -54,11 +54,15 @@ export BUN_DIR=$BUILD_DIR/.heroku/cache
 curl -fsSL https://bun.sh/install | bash $BUN_INSTALL_VERSION
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# set environment variables
+# set environment variables at runtime
 PROFILE_PATH="$BUILD_DIR/.profile.d/bun.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$HOME/.heroku/bin:$PATH"' >> $PROFILE_PATH
 echo 'export BUN_DIR="$HOME/.heroku/cache"' >> $PROFILE_PATH
+
+# export environment variables to subsequent buildpacks
+echo "export PATH=\"$BUILD_DIR/.heroku/bin:\$PATH\"" >> "$BP_DIR/export"
+echo "export BUN_DIR=\"$BUILD_DIR/.heroku/cache\"" >> "$BP_DIR/export"
 
 echo "Installed Bun v$(bun --version)"
 

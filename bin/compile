@@ -2,7 +2,7 @@
 # bin/compile <build-dir> <cache-dir> <env-dir>
 # $HOME: /app
 
-set -e
+set -euo pipefail
 
 BUILD_DIR=${1:-.}
 CACHE_DIR=${2:-}

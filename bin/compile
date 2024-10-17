@@ -2,6 +2,9 @@
 # bin/compile <build-dir> <cache-dir> <env-dir>
 # $HOME: /app
 
+# -e - always exit on error
+# -u - references to undefined variables errors/exits
+# -o pipefail - don't ignore exit codes when piping output
 set -euo pipefail
 
 BUILD_DIR=${1:-.}

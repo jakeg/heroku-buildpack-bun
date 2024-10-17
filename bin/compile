@@ -54,7 +54,7 @@ fi
 # install bun
 export BUN_INSTALL=$BUILD_DIR/.heroku
 export BUN_DIR=$BUILD_DIR/.heroku/cache
-curl -fsSL https://bun.sh/install | bash $BUN_INSTALL_VERSION
+curl -fsSL --retry-connrefused --retry 3 https://bun.sh/install | bash $BUN_INSTALL_VERSION
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # set environment variables at runtime
